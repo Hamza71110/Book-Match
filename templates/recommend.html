@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Book Match | Pick My Read</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div id="loader">
+
+    <div class="spinner"></div>
+
+</div>
+
+<nav class="navbar">
+
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="/">
+                 Book Match
+            </a>
+
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <li>
+                <a href="/">Home</a>
+            </li>
+
+            <li class="active">
+                <a href="/recommend">Pick My Read</a>
+            </li>
+
+            <li>
+                <a href="/contact">Say Hi</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+<div class="container">
+
+    <div class="recommend-section">
+
+        <h1 class="recommend-title">
+            Pick Your Next Read
+        </h1>
+
+        <p class="recommend-subtitle">
+            Enter a book title and let Book Match recommend books you'll love.
+        </p>
+
+        <form action="/recommend_books" method="post">
+            {% if error %}
+<div class="alert alert-warning text-center"
+     style="margin-top:25px;
+            border-radius:12px;
+            font-size:18px;
+            background:#2a2f3b;
+            color:white;
+            border:none;">
+    {{ error }}
+</div>
+{% endif %}
+
+            <input
+
+                   list="books"
+
+                   name="user_input"
+
+                   class="form-control"
+
+                   placeholder="Search your favourite book..."
+
+                   autocomplete="off"
+
+            required>
+
+            <datalist id="books">
+
+{% for book in books_name %}
+
+      <option value="{{book}}">
+
+{% endfor %}
+
+</datalist>
+
+
+            <button type="submit" class="recommend-btn">
+                Recommend Books
+            </button>
+            <div id="loading-spinner" style="display:none; text-align:center; margin-top:30px;">
+              <div class="loader"></div>
+              <p style="margin-top:15px;">Finding similar books...</p>
+            </div>
+
+        </form>
+
+    </div>
+
+    {% if data %}
+      <div class="results-header">
+          <h2>Recommended for "{{ searched_book }}"</h2>
+         <p>{{ total_books }} similar books found</p>
+      </div>
+
+    <div class="row">
+
+        {% for i in data %}
+
+        <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom:35px;">
+
+            <div class="book-card">
+
+                <img
+                        src="{{ i[2] }}"
+                        class="book-cover"
+                        alt="{{ i[0] }}">
+
+                <h4 class="book-title">
+                    {{ i[0] }}
+                </h4>
+
+                <p class="book-author">
+                    {{ i[1] }}
+                </p>
+
+                <p class="book-year">
+                     {{ i[3] }}
+                </p>
+
+                <p class="match-score">
+                    {{ i[4] }}% Match
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Book Match • Built with Flask, Python & Machine Learning </p>
+    </div>
+</footer>
+
+<script>
+
+const form=document.querySelector("form");
+
+form.addEventListener("submit",function(){
+
+document.getElementById("loader").style.display="flex";
+
+});
+
+</script>
+
+<script>
+document.querySelector("form").addEventListener("submit", function () {
+    document.getElementById("loading-spinner").style.display = "block";
+});
+</script>
+
+</body>
+
+</html>

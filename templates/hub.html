@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Book Match | Hub</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="/">
+                 Book Match
+            </a>
+
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <li>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="/recommend">Pick My Read</a>
+            </li>
+
+            <li>
+                <a href="/contact">Say Hi</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+<div class="container">
+
+    <h1 class="section-title">
+        Reader Favorites
+    </h1>
+
+    <div class="row">
+
+        {% for i in range(book_name|length) %}
+
+        <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom:35px;">
+
+            <div class="book-card">
+
+                <img
+                        src="{{ image[i] }}"
+                        alt="{{ book_name[i] }}"
+                        class="book-cover">
+
+                <h4 class="book-title">
+                    {{ book_name[i] }}
+                </h4>
+
+                <p class="book-author">
+                    {{ author[i] }}
+                </p>
+
+                <div class="book-meta">
+
+                    <span>⭐ {{ "%.2f"|format(rating[i]) }}</span>
+
+                    <span>👥 {{ votes[i] }}</span>
+
+                </div>
+
+                <p class="book-year">
+                     {{ publish_year[i] }}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Book Match • Built with Flask, Python & Machine Learning </p>
+    </div>
+</footer>
+
+</body>
+
+</html>

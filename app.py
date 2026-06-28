@@ -4,7 +4,6 @@ import numpy as np
 from flask import Flask, render_template, request
 
 HERE = os.path.dirname(__file__)
-
 popular_df = pickle.load(open(os.path.join(HERE, 'popular_df.pkl'), 'rb'))
 pt = pickle.load(open(os.path.join(HERE, 'pt.pkl'), 'rb'))
 books = pickle.load(open(os.path.join(HERE, 'books.pkl'), 'rb'))

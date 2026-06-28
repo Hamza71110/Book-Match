@@ -1,11 +1,14 @@
-from flask import Flask,render_template,request
+import os
 import pickle
 import numpy as np
+from flask import Flask, render_template, request
 
-popular_df = pickle.load(open('popular_df.pkl','rb'))
-pt = pickle.load(open('pt.pkl','rb'))
-books = pickle.load(open('books.pkl','rb'))
-similarity_scores = pickle.load(open('similarities.pkl','rb'))
+HERE = os.path.dirname(__file__)
+
+popular_df = pickle.load(open(os.path.join(HERE, 'popular_df.pkl'), 'rb'))
+pt = pickle.load(open(os.path.join(HERE, 'pt.pkl'), 'rb'))
+books = pickle.load(open(os.path.join(HERE, 'books.pkl'), 'rb'))
+similarity_scores = pickle.load(open(os.path.join(HERE, 'similarities.pkl'), 'rb'))
 
 app = Flask(__name__)
 
